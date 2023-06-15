@@ -5,19 +5,13 @@ using OpenAI.ObjectModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapPost("/AskAi", async (string api_key, string content) =>
 {
@@ -42,7 +36,6 @@ app.MapPost("/AskAi", async (string api_key, string content) =>
 
     return completionResult.Choices.FirstOrDefault().Text;
 });
-
 app.MapGet("/Read", () => { return 1; });
 app.MapPut("/Update", () => { return 1; });
 app.MapDelete("/Delete", () => { return 1; });
